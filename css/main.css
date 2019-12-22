@@ -1,0 +1,21 @@
+body {
+    margin: 0em;
+    background-color: bisque;
+}
+
+.credits {
+    font-size: 0.6em;
+    text-align: end;
+}
+
+.snake-container {
+    text-align: center;
+    width: 100%;
+}
+
+.snake {
+    width: 500px;
+    height: 500px;
+    display: inline;
+    background-color: #3e3e3e;
+}
