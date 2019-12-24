@@ -1,4 +1,6 @@
-class Food extends Block {
+import Block from './block.js';
+
+export default class Food extends Block {
     constructor (game_rows, game_columns) {
         super(Math.round(game_rows * Math.random()), Math.round(game_columns * Math.random()));
         this.game_rows = game_rows;

@@ -1,11 +1,11 @@
 body {
-    margin: 0em;
+    margin: 0;
     background-color: bisque;
 }
 
 .credits {
     font-size: 0.6em;
-    text-align: end;
+    text-align: center;
 }
 
 .snake-container {
@@ -17,5 +17,4 @@ body {
     width: 500px;
     height: 500px;
     display: inline;
-    background-color: #3e3e3e;
 }

@@ -1,12 +1,15 @@
-class Snake {
+import Block from './block.js';
+
+export default class Snake {
     constructor () {
         this.head = new Block(0, 0);
-        this.curr_direction = "left";
+        this.curr_direction = "";
+        this.dx = 0;
+        this.dy = 0;
         this.body = [this.head];
     }
 
     eat_food = function () {
-        tail = this.body[this.body.length-1];
         switch (this.curr_direction) {
             case("left"):
                 this.body.push(new Block(this.head.x-1, this.head.y));
@@ -20,28 +23,38 @@ class Snake {
             case("down"):
                 this.body.push(new Block(this.head.x, this.head.y+1));
                 break;
+            default:
+                break;
         }
     }
     
-    move_left = function () {
+    move_left = function (speed) {
+        this.dx = -1 * speed;
+        this.dy = 0;
         this.curr_direction = "left";
         this.body.splice(0, 0, new Block(this.head.x-1, this.head.y));
         this.body.pop();
     }
     
-    move_right = function () {
+    move_right = function (speed) {
+        this.dx = speed;
+        this.dy = 0;
         this.curr_direction = "right";
         this.body.splice(0, 0, new Block(this.head.x+1, this.head.y));
         this.body.pop();
     }
     
-    move_up = function () {
+    move_up = function (speed) {
+        this.dx = 0;
+        this.dy = -1 * speed;
         this.curr_direction = "up";
         this.body.splice(0, 0, new Block(this.head.x, this.head.y-1));
         this.body.pop();
     }
     
-    move_down = function () {
+    move_down = function (speed) {
+        this.dx = 0;
+        this.dy = speed;
         this.curr_direction = "down";
         this.body.splice(0, 0, new Block(this.head.x+1, this.head.y+1));
         this.body.pop();
