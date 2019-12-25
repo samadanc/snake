@@ -36,6 +36,12 @@ play_button_2.onclick = play_button;
 window.addEventListener('scroll', function() {
     window.scrollTo(0, 0);
 });
+window.addEventListener("keydown", function(e) {
+    // space and arrow keys
+    if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+        e.preventDefault();
+    }
+}, false);
 
 
 /* Game CRUD */
