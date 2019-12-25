@@ -6,8 +6,8 @@ export default class Game {
         block_size = block_size || 10;
         this.game_over = false;
         this.score = 0;
-        this.rows = rows || Math.floor(window.innerWidth/block_size);
-        this.columns = columns || Math.floor(window.innerHeight/block_size);
+        this.rows = rows || Math.floor(window.innerHeight/block_size);
+        this.columns = columns || Math.floor(window.innerWidth/block_size);
         this.snake = new Snake();
         this.food = new Food(this.rows, this.columns);
     }
@@ -21,7 +21,7 @@ export default class Game {
     }
     
     out = function () {
-        if (this.snake.head.x >= this.columns || this.snake.head.x < 0 || this.snake.head.y >= this.rows || this.snake.head.y < 0) {
+        if (this.snake.head.x > this.columns || this.snake.head.x < 0 || this.snake.head.y > this.rows || this.snake.head.y < 0) {
             this.game_over = true;
         }
         if (this.snake.ate_self()) {
