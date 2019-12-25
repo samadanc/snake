@@ -6,32 +6,43 @@ const width = 500;
 const height = 500;
 const board_color = 'black'; //#3e3e3e
 const snake_color = 'white';
-const food_color = 'blue';
-const snake_speed = 10;
+const food_color = '#ff8787';
+const snake_speed = 1;
 const block_size = 10;
 const rows = width / block_size;
 const columns = height / block_size;
 
-function draw (display, a_game) {
-    view.clear();
-    view.draw_board(0, 0, width, height, board_color);
-    display.draw_blocks(a_game.snake.body, block_size, snake_color);
-    display.draw_block(a_game.food, block_size, food_color);
-    a_game.next_frame("right", snake_speed);
+function draw (display, a_game, snake_direction) {
+    display.clear();
+    display.draw_blocks(a_game.get_snake_blocks(), snake_color);
+    display.draw_block(a_game.food, food_color);
+    a_game.next_frame(snake_direction, snake_speed);
 }
 
-var game = new Game(rows, columns);
-var view = new View(document.getElementById("snake"));
-draw(view, game);
+function change_direction (e) {
+    let direction = controller.get_direction(e.key);
+    if (direction != "") {
+        controller.current_direction = direction;
+    }
+}
+
+let game = new Game(rows, columns);
+let view = new View(document.getElementById("snake"), block_size);
+let controller = new Controller("right");
+let snake_interval = 0;
+view.draw_board(width, height, board_color);
 
 function play_snake () {
-    window.setInterval(() => {
-        draw(view, game);
-    }, 250);
-}
+    snake_interval = window.setInterval(() => {
+        draw(view, game, controller.current_direction);
+        document.addEventListener('keydown', change_direction);
+        if (game.game_over) {
+            window.clearInterval(snake_interval);
+            console.log("GAME OVER");
+            console.log("Score: "+ game.score.toString());
+        }
+    }, 80);
 
-while (!game.game_over) {
-    play_snake();
-}
+};
 
-console.log(game.score);
+play_snake();

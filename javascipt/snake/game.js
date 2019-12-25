@@ -2,7 +2,7 @@ import Snake from './snake.js';
 import Food from './food.js';
 
 export default class Game {
-    constructor(rows, columns) {
+    constructor (rows, columns) {
         this.game_over = false;
         this.score = 0;
         this.rows = rows;
@@ -20,7 +20,7 @@ export default class Game {
     }
     
     out = function () {
-        if (this.snake.head.x > this.columns || this.snake.head.x < 0 || this.snake.head.y > this.rows || this.snake.head.y < 0) {
+        if (this.snake.head.x >= this.columns || this.snake.head.x < 0 || this.snake.head.y >= this.rows || this.snake.head.y < 0) {
             this.game_over = true;
         }
         if (this.snake.ate_self()) {
@@ -51,5 +51,13 @@ export default class Game {
         this.move_snake(direction, snake_speed);
         this.eat();
         this.out();
+    }
+
+    get_snake_blocks = function() {
+        return this.snake.body;
+    }
+
+    log_score = function () {
+        console.log(this.score);
     }
 }

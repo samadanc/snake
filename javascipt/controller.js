@@ -1,21 +1,15 @@
 export default class Controller {
-    constructor (event) {
-        this.event = event;
-        this.direction = this.get_direction(event.key_code);
+    constructor (current_direction) {
+        this.current_direction = current_direction;
     }
 
-    get_direction = function (key_code) {
-        switch(key_code) {
-            case 37:
-                return "left";
-            case 38:
-                return "up";
-            case 39:
-                return "right";
-            case 40:
-                return "down";
-            default:
-                return "";
+    get_direction = function (event_key) {
+        switch(event_key){
+            case "ArrowLeft": return "left";
+            case "ArrowUp": return "up";
+            case "ArrowRight": return "right";
+            case "ArrowDown": return "down";
+            default: return "";
         }
     }
 }

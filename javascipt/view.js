@@ -1,6 +1,7 @@
 export default class View {
-    constructor (canvas) {
+    constructor (canvas, block_size) {
         this.canvas  = canvas;
+        this.block_size = block_size;
         this.context = canvas.getContext("2d");
     }
 
@@ -8,17 +9,21 @@ export default class View {
         this.context.fillStyle = color;
     }
 
-    draw_board = function (x, y, width, height, color) {
+    draw_board = function (width, height, color) {
         this.canvas.style.backgroundColor = color;
+        this.canvas.width = width;
+        this.canvas.height = height;
+        this.canvas.style.width = width.toString() + 'px';
+        this.canvas.style.height = height.toString() + 'px';
     }
 
-    draw_block = function (block, length, color) {
+    draw_block = function (block, color) {
         this.set_context_color(color);
-        this.context.fillRect(block.x, block.y, length, length);
+        this.context.fillRect(block.x * this.block_size, block.y * this.block_size, this.block_size, this.block_size);
     }
 
-    draw_blocks = function (blocks, length, color) {
-        blocks.forEach(block => this.draw_block(block, length, color));
+    draw_blocks = function (blocks, color) {
+        blocks.forEach(block => this.draw_block(block, color));
     }
 
     clear = function () {

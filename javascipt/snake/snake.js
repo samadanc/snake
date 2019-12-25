@@ -27,41 +27,43 @@ export default class Snake {
                 break;
         }
     }
-    
+
     move_left = function (speed) {
         this.dx = -1 * speed;
         this.dy = 0;
         this.curr_direction = "left";
-        this.body.splice(0, 0, new Block(this.head.x-1, this.head.y));
-        this.body.pop();
+        this.move();
     }
-    
+
     move_right = function (speed) {
         this.dx = speed;
         this.dy = 0;
         this.curr_direction = "right";
-        this.body.splice(0, 0, new Block(this.head.x+1, this.head.y));
-        this.body.pop();
+        this.move();
     }
-    
+
     move_up = function (speed) {
         this.dx = 0;
         this.dy = -1 * speed;
         this.curr_direction = "up";
-        this.body.splice(0, 0, new Block(this.head.x, this.head.y-1));
-        this.body.pop();
+        this.move();
     }
-    
+
     move_down = function (speed) {
         this.dx = 0;
         this.dy = speed;
         this.curr_direction = "down";
-        this.body.splice(0, 0, new Block(this.head.x+1, this.head.y+1));
+        this.move();
+    }
+
+    move = function () {
+        this.head = new Block(this.head.x + this.dx, this.head.y + this.dy)
+        this.body.splice(0, 0, this.head);
         this.body.pop();
     }
 
     ate_self = function () {
-        for (var i = 0; i < this.body.length; i++) {
+        for (var i = 1; i < this.body.length; i++) {
             if (this.head.x === this.body[i].x && this.head.y === this.body[i].y) {
                 return true;
             }
