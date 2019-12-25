@@ -10,11 +10,17 @@
     <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-    <div class="snake-container">
-        <canvas id="snake" class="snake"></canvas>
+    <div id="pop-up-1" class="pop-up">
+        <div class="popup-content">
+            <button id="play-1">Play Game</button>
+        </div>
     </div>
-    <div class="credits">
-        snake favicon made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+    <canvas id="snake" class="snake"></canvas>
+    <div id="pop-up-2" class="pop-up">
+        <div class="popup-content">
+            <p>Score: <span id="score"></span></p>
+            <button id="play-2">Play Again?</button>
+        </div>
     </div>
     <script src="/main.js" type="module"></script>
     <script src="/javascipt/snake/game.js" type="module"></script>

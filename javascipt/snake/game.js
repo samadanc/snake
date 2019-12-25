@@ -2,13 +2,14 @@ import Snake from './snake.js';
 import Food from './food.js';
 
 export default class Game {
-    constructor (rows, columns) {
+    constructor (rows, columns, block_size) {
+        block_size = block_size || 10;
         this.game_over = false;
         this.score = 0;
-        this.rows = rows;
-        this.columns = columns;
+        this.rows = rows || Math.floor(window.innerWidth/block_size);
+        this.columns = columns || Math.floor(window.innerHeight/block_size);
         this.snake = new Snake();
-        this.food = new Food(rows, columns);
+        this.food = new Food(this.rows, this.columns);
     }
 
     eat = function () {
@@ -48,6 +49,7 @@ export default class Game {
     }
 
     next_frame = function (direction, snake_speed) {
+        snake_speed = snake_speed || 1;
         this.move_snake(direction, snake_speed);
         this.eat();
         this.out();
