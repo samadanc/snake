@@ -3,13 +3,13 @@ import View from './javascipt/view.js';
 import Controller from './javascipt/controller.js';
 
 /* Constants (will default to these, if undefined input) */
-const width = undefined;
-const height = undefined;
-const board_color = undefined;
-const snake_color = undefined;
-const food_color = undefined;
-const snake_speed = undefined;
-const block_size = undefined;
+const width = window.innerWidth;
+const height = window.innerHeight;
+const board_color = '#272727';
+const snake_color = 'white';
+const food_color = '#ff8787';
+const snake_speed = 1;
+const block_size = 10;
 const rows = width / block_size;
 const columns = height / block_size;
 
