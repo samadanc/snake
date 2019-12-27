@@ -9,7 +9,8 @@ const board_color = '#272727';
 const snake_color = 'white';
 const food_color = '#ff8787';
 const snake_speed = 1;
-const block_size = 10;
+const frame_speed_ms = 150;
+const block_size = 100;
 const rows = Math.floor(height / block_size);
 const columns = Math.floor(width / block_size);
 
@@ -37,8 +38,7 @@ window.addEventListener('scroll', function() {
     window.scrollTo(0, 0);
 });
 window.addEventListener("keydown", function(e) {
-    // space and arrow keys
-    if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+    if([' ', 'ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown'].includes(e.key)) {
         e.preventDefault();
     }
 }, false);
@@ -46,6 +46,11 @@ window.addEventListener("keydown", function(e) {
 
 /* Game CRUD */
 function play_game(my_canvas) {
+    let game = new Game(rows, columns, block_size);
+    let view = new View(my_canvas, block_size);
+    let controller = new Controller("right");
+    let snake_interval = 0;
+    view.draw_board(width, height, board_color);
 
     function draw (display, a_game, snake_direction) {
         display.clear();
@@ -55,29 +60,28 @@ function play_game(my_canvas) {
     }
 
     function change_direction (e) {
-        let direction = controller.get_direction(e.key);
-        if (direction != "") {
-            controller.current_direction = direction;
+        if (['left', 'right'].includes(controller.current_direction) && ['ArrowUp', 'ArrowDown'].includes(e.key)) {
+            controller.current_direction = controller.get_direction(e.key);
+        }
+        if (['up', 'down'].includes(controller.current_direction) && ['ArrowLeft', 'ArrowRight'].includes(e.key)) {
+            controller.current_direction = controller.get_direction(e.key);
         }
     }
 
-    let game = new Game(rows, columns, block_size);
-    let view = new View(my_canvas, block_size);
-    let controller = new Controller("right");
-    let snake_interval = 0;
-    let score = 0;
-    view.draw_board(width, height, board_color);
+    function game_over () {
+        window.clearInterval(snake_interval);
+        document.getElementById("score").innerHTML = game.score.toString();
+        pop_up_2.style.display = "block";
+    }
 
     (function play_snake () {
+        document.addEventListener('keydown', change_direction);
         snake_interval = window.setInterval(() => {
             draw(view, game, controller.current_direction);
-            document.addEventListener('keydown', change_direction);
             if (game.game_over) {
-                window.clearInterval(snake_interval);
-                document.getElementById("score").innerHTML = game.score.toString();
-                pop_up_2.style.display = "block";
+                game_over();
             }
-        }, 80);
+        }, frame_speed_ms);
 
     })();
 }

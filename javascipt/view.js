@@ -22,7 +22,7 @@ export default class View {
     }
 
     draw_blocks = function (blocks, color) {
-        blocks.forEach(block => this.draw_block(block, color || 'white'));
+        blocks.forEach(block => this.draw_block(block, color));
     }
 
     clear = function () {

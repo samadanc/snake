@@ -12,16 +12,16 @@ export default class Snake {
     eat_food = function () {
         switch (this.curr_direction) {
             case("left"):
-                this.body.push(new Block(this.head.x-1, this.head.y));
+                this.body.push(new Block(this.head.x - this.dx, this.head.y));
                 break;
             case("right"):
-                this.body.push(new Block(this.head.x+1, this.head.y));
+                this.body.push(new Block(this.head.x + this.dx, this.head.y));
                 break;
             case("up"):
-                this.body.push(new Block(this.head.x, this.head.y-1));
+                this.body.push(new Block(this.head.x, this.head.y - this.dy));
                 break;
             case("down"):
-                this.body.push(new Block(this.head.x, this.head.y+1));
+                this.body.push(new Block(this.head.x, this.head.y + this.dy));
                 break;
             default:
                 break;
@@ -57,7 +57,7 @@ export default class Snake {
     }
 
     move = function () {
-        this.head = new Block(this.head.x + this.dx, this.head.y + this.dy)
+        this.head = new Block(this.head.x + this.dx, this.head.y + this.dy);
         this.body.splice(0, 0, this.head);
         this.body.pop();
     }
