@@ -9,8 +9,8 @@ const board_color = '#272727';
 const snake_color = 'white';
 const food_color = '#ff8787';
 const snake_speed = 1;
-const frame_speed_ms = 150;
-const block_size = 100;
+const frame_speed_ms = 80;
+const block_size = 10;
 const rows = Math.floor(height / block_size);
 const columns = Math.floor(width / block_size);
 
