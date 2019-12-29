@@ -49,11 +49,6 @@ export default class Snake {
     }
 
     ate_self = function () {
-        for (var i = 1; i < this.body.length; i++) {
-            if (this.head.x === this.body[i].x && this.head.y === this.body[i].y) {
-                return true;
-            }
-        }
-        return false;
+        return this.body.filter(block => this.head.x === block.x && this.head.y === block.y).length > 1;
     }
 }
