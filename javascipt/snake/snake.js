@@ -1,41 +1,41 @@
 import Block from './block.js';
 
 export default class Snake {
-    constructor () {
+    constructor (speed) {
         this.head = new Block(0, 0);
-        this.curr_direction = "";
-        this.dx = 0;
+        this.current_direction = "right";
+        this.speed = speed || 1;
+        this.dx = speed;
         this.dy = 0;
         this.body = [this.head];
         this.eat_food = false;
     }
 
-    move_left = function (speed) {
-        this.dx = -1 * speed;
-        this.dy = 0;
-        this.curr_direction = "left";
-        this.move();
-    }
-
-    move_right = function (speed) {
-        this.dx = speed;
-        this.dy = 0;
-        this.curr_direction = "right";
-        this.move();
-    }
-
-    move_up = function (speed) {
-        this.dx = 0;
-        this.dy = -1 * speed;
-        this.curr_direction = "up";
-        this.move();
-    }
-
-    move_down = function (speed) {
-        this.dx = 0;
-        this.dy = speed;
-        this.curr_direction = "down";
-        this.move();
+    turn = function (direction) {
+        switch (direction) {
+            case("left"):
+                this.dx = -1 * this.speed;
+                this.dy = 0;
+                this.current_direction = "left";
+                break;
+            case("right"):
+                this.dx = this.speed;
+                this.dy = 0;
+                this.current_direction = "right";
+                break;
+            case("up"):
+                this.dx = 0;
+                this.dy = -1 * this.speed;
+                this.current_direction = "up";
+                break;
+            case("down"):
+                this.dx = 0;
+                this.dy = this.speed;
+                this.current_direction = "down";
+                break;
+            default:
+                break;
+        }
     }
 
     move = function () {
@@ -45,6 +45,18 @@ export default class Snake {
         if (this.eat_food) {
             this.body.push(popped_block);
             this.eat_food = false;
+        }
+    }
+
+    allowed_direction = function (direction) {
+        if (this.current_direction === "left" || this.current_direction === "right") {
+            return direction === "up" || direction === "down";
+        }
+        else if (this.current_direction === "up" || this.current_direction === "down"){
+            return direction === "left" || direction === "right";
+        }
+        else {
+            return false;
         }
     }
 

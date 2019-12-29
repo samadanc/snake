@@ -50,7 +50,7 @@ document.addEventListener("keydown", function(e) {
 
 /* Game CRUD */
 function play_game(my_canvas) {
-    let game = new Game(rows, columns, block_size);
+    let game = new Game(rows, columns, block_size, snake_speed);
     let view = new View(my_canvas, block_size);
     let controller = new Controller("right");
     let snake_interval = 0;
@@ -60,16 +60,11 @@ function play_game(my_canvas) {
         display.clear();
         display.draw_blocks(a_game.get_snake_blocks(), snake_color);
         display.draw_block(a_game.food, food_color);
-        a_game.next_frame(snake_direction, snake_speed);
+        a_game.next_frame(snake_direction);
     }
 
     function change_direction (e) {
-        if (['left', 'right'].includes(controller.current_direction) && ['ArrowUp', 'ArrowDown'].includes(e.key)) {
-            controller.current_direction = controller.get_direction(e.key);
-        }
-        if (['up', 'down'].includes(controller.current_direction) && ['ArrowLeft', 'ArrowRight'].includes(e.key)) {
-            controller.current_direction = controller.get_direction(e.key);
-        }
+        controller.current_direction = controller.get_direction(e.key);
     }
 
     function game_over () {

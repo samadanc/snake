@@ -2,13 +2,13 @@ import Snake from './snake.js';
 import Food from './food.js';
 
 export default class Game {
-    constructor (rows, columns, block_size) {
+    constructor (rows, columns, block_size, snake_speed) {
         block_size = block_size || 10;
         this.game_over = false;
         this.score = 0;
         this.rows = rows || Math.floor(window.innerHeight/block_size);
         this.columns = columns || Math.floor(window.innerWidth/block_size);
-        this.snake = new Snake();
+        this.snake = new Snake(snake_speed);
         this.food = new Food(this.rows, this.columns);
     }
 
@@ -29,28 +29,15 @@ export default class Game {
         }
     }
     
-    move_snake = function (direction, speed) {
-        switch (direction) {
-            case("left"):
-                this.snake.move_left(speed);
-                break;
-            case("right"):
-                this.snake.move_right(speed);
-                break;
-            case("up"):
-                this.snake.move_up(speed);
-                break;
-            case("down"):
-                this.snake.move_down(speed);
-                break;
-            default:
-                break;
+    move_snake = function (direction) {
+        if (this.snake.current_direction != direction && this.snake.allowed_direction(direction)) {
+            this.snake.turn(direction);
         }
+        this.snake.move();
     }
 
-    next_frame = function (direction, snake_speed) {
-        snake_speed = snake_speed || 1;
-        this.move_snake(direction, snake_speed);
+    next_frame = function (direction) {
+        this.move_snake(direction);
         this.eat();
         this.out();
     }
