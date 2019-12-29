@@ -3,8 +3,8 @@ import View from './javascipt/view.js';
 import Controller from './javascipt/controller.js';
 
 /* Constants (will default to these, if undefined input) */
-const width = window.innerWidth;
-const height = window.innerHeight;
+let width = window.innerWidth;
+let height = window.innerHeight;
 const board_color = '#272727';
 const snake_color = 'white';
 const food_color = '#ff8787';
@@ -22,22 +22,26 @@ let play_button_1 = document.getElementById("play-1");
 let play_button_2 = document.getElementById("play-2");
 let canvas = document.getElementById("snake");
 
-pop_up_1.style.display = "block";
+function switchModal (modal, display) {
+    modal.style.display = display;
+}
 
-function play_button() {
-    pop_up_1.style.display = "none";
-    pop_up_2.style.display = "none";
+function play_button () {
+    switchModal(pop_up_1, 'none');
+    switchModal(pop_up_2, 'none');
     play_game(canvas);
 }
+
+switchModal(pop_up_1, 'block');
 play_button_1.onclick = play_button;
 play_button_2.onclick = play_button;
 
 
 // listener to disable scrolling
-window.addEventListener('scroll', function() {
+document.addEventListener('scroll', function() {
     window.scrollTo(0, 0);
 });
-window.addEventListener("keydown", function(e) {
+document.addEventListener("keydown", function(e) {
     if([' ', 'ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown'].includes(e.key)) {
         e.preventDefault();
     }
@@ -71,7 +75,7 @@ function play_game(my_canvas) {
     function game_over () {
         window.clearInterval(snake_interval);
         document.getElementById("score").innerHTML = game.score.toString();
-        pop_up_2.style.display = "block";
+        switchModal(pop_up_2, 'block');
     }
 
     (function play_snake () {

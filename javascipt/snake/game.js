@@ -14,7 +14,7 @@ export default class Game {
 
     eat = function () {
         if (this.snake.head.x === this.food.x && this.snake.head.y === this.food.y) {
-            this.snake.eat_food();
+            this.snake.eat_food = true;
             this.score += 1;
             this.food.respawn();
         }

@@ -7,25 +7,7 @@ export default class Snake {
         this.dx = 0;
         this.dy = 0;
         this.body = [this.head];
-    }
-
-    eat_food = function () {
-        switch (this.curr_direction) {
-            case("left"):
-                this.body.push(new Block(this.head.x - this.dx, this.head.y));
-                break;
-            case("right"):
-                this.body.push(new Block(this.head.x + this.dx, this.head.y));
-                break;
-            case("up"):
-                this.body.push(new Block(this.head.x, this.head.y - this.dy));
-                break;
-            case("down"):
-                this.body.push(new Block(this.head.x, this.head.y + this.dy));
-                break;
-            default:
-                break;
-        }
+        this.eat_food = false;
     }
 
     move_left = function (speed) {
@@ -58,8 +40,12 @@ export default class Snake {
 
     move = function () {
         this.head = new Block(this.head.x + this.dx, this.head.y + this.dy);
-        this.body.splice(0, 0, this.head);
-        this.body.pop();
+        this.body.unshift(this.head);
+        let popped_block = this.body.pop();
+        if (this.eat_food) {
+            this.body.push(popped_block);
+            this.eat_food = false;
+        }
     }
 
     ate_self = function () {
